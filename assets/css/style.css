@@ -1,0 +1,10 @@
+body {
+    background: oldlace;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    margin: 0px auto;
+    max-width: 960px;
+    text-align: center;
+}

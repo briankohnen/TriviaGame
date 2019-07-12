@@ -5,6 +5,8 @@ var intervalId;
 var btIntervalId;
 var timer = 30;
 var betweenTimer = 5;
+var nextQuestion = 0;
+var bigButton = $("#startButton");
 
 
 var questionsArray = [{
@@ -18,7 +20,7 @@ var questionsArray = [{
     answer : "no"
     },
     {
-    questions : "is this cheese?",
+    question : "is this cheese?",
     options : ["its fart", "its red", "its cheese", "yes"],
     answer : "yes"
     }];
@@ -28,6 +30,7 @@ $(document).ready(function() {
 
 
     function runTimer() {
+        timer = 30;
         clearInterval(intervalId);
         intervalId = setInterval(decrement, 1000);
     }
@@ -37,6 +40,11 @@ $(document).ready(function() {
         $("#timer").html("<h3> Time Remaining : " + timer + "</h3>");
         if (timer === 0) {
             stop();
+            loadTimer();
+            unanswered++;
+            nextQuestion++;
+            $("#questionInfo").empty();
+            $("#questionInfo").html("<h1>You didn't even guess...</h1>");
         }
     }
 
@@ -56,96 +64,149 @@ $(document).ready(function() {
         betweenTimer--;
         if (betweenTimer === 0) {
             stop();
+            top();
         }
     };
 
 
 
-    $("#startButton").click(function() {
+    $(bigButton).click(function() {
         $("#startButton").remove();
         startGame();
     });
 
+    function top() {
 
-    function startGame() {
+        betweenTimer = 5;
 
-                runTimer();
-                $("#questionInfo").html("<h1>" + questionsArray[0].question + "</h1>");
+        if (nextQuestion === 0) {
             
-                for (var i = 0; i < questionsArray[0].options.length; i++) {
-                    $("#questionInfo").append("<button class=answers>" + questionsArray[0].options[i] + "</button>");
-                }
-
-                console.log(questionsArray[0].answer);
-
-                $(".answers").click(function() {
-                    if ($(this).html() == questionsArray[0].answer) {
-                        stop();
-                        loadTimer();
-                        correct++;
-                        $("#questionInfo").empty();
-                        $("#questionInfo").html("<h1>You guessed correctly!</h1>");
-                    } else {
-                        stop();
-                        loadTimer();
-                        incorrect++;
-                        $("#questionInfo").empty();
-                        $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
-                    }
-                });
-
-
-
-
-            //     runTimer();
-            //     $("#questionInfo").html("<h1>" + questionsArray[1].question + "</h1>");
+            runTimer();
             
-            //     for (var i = 0; i < questionsArray[1].options.length; i++) {
-            //         $("#questionInfo").append("<button class=answers>" + questionsArray[1].options[i] + "</button>");
-            //     }
-
-            //     console.log(questionsArray[1].answer);
-
-            //     $(".answers").click(function() {
-            //         if ($(this).html() == questionsArray[1].answer) {
-            //             stop();
-            //             loadTimer();
-            //             correct++;
-            //         } else {
-            //             stop();
-            //             loadTimer();
-            //             incorrect++;
-            //         }
-            //     });
-            // };
+            $("#questionInfo").html("<h1>" + questionsArray[0].question + "</h1>");
         
 
-    
+            for (var i = 0; i < questionsArray[0].options.length; i++) {
+                $("#questionInfo").append("<button class=answers>" + questionsArray[0].options[i] + "</button>");
+            }
 
 
+            $(".answers").click(function() {
+                
+                if ($(this).html() == questionsArray[0].answer) {
+                    stop();
+                    loadTimer();
+                    correct++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
+
+                } else {
+                    stop();
+                    loadTimer();
+                    incorrect++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
+
+                }
+            });
+
+        } else if (nextQuestion === 1) {
+            
+            runTimer();
+            
+            $("#questionInfo").html("<h1>" + questionsArray[1].question + "</h1>");
+        
+
+            for (var i = 0; i < questionsArray[1].options.length; i++) {
+                $("#questionInfo").append("<button class=answers>" + questionsArray[1].options[i] + "</button>");
+            }
 
 
+            $(".answers").click(function() {
+                
+                if ($(this).html() == questionsArray[1].answer) {
+                   
+                    stop();
+                    loadTimer();
+                    correct++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
+
+                } else {
+                   
+                    stop();
+                    loadTimer();
+                    incorrect++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
+
+                }
+            })
+
+        } else if (nextQuestion === 2) {
+            
+            runTimer();
+            
+            $("#questionInfo").html("<h1>" + questionsArray[2].question + "</h1>");
+        
+
+            for (var i = 0; i < questionsArray[2].options.length; i++) {
+                $("#questionInfo").append("<button class=answers>" + questionsArray[2].options[i] + "</button>");
+            }
 
 
+            $(".answers").click(function() {
+               
+                if ($(this).html() == questionsArray[2].answer) {
+                    stop();
+                    loadTimer();
+                    correct++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
+
+                } else {
+                   
+                    stop();
+                    loadTimer();
+                    incorrect++;
+                    nextQuestion++;
+                    $("#questionInfo").empty();
+                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
+
+                }
+            })
+        } else {
+
+            stop();
+            $("#questionInfo").empty();
+            $("#questionInfo").html("<h1>All done!</h1>");
+            $("#questionInfo").append("Times you were smart : " + correct + "<br>");
+            $("#questionInfo").append("Times you screwed up : " + incorrect + "<br>");
+            $("#questionInfo").append("Times you just didn't try : " + unanswered + "<br>");
+            $("#questionInfo").append(bigButton);
+            $(bigButton).click(function() {
+                $("#startButton").remove();
+                startGame();
+            });
+        };
+
+    }
+
+    function startGame() {
+    correct = 0;
+    incorrect = 0;
+    unanswered = 0;
+    intervalId;
+    timer = 30;
+    betweenTimer = 5;
+    nextQuestion = 0;
+    top();
+    };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
 });
