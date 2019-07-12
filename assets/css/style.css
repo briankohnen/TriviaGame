@@ -1,10 +1,43 @@
 body {
-    background: oldlace;
+    background: seagreen;
+    /* background-image : url("https://media1.tenor.com/images/ec9aa76f2825cfffcb6aa6df409ecc81/tenor.gif?itemid=7867888"); */
     box-sizing: border-box;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color : white;
+}
+
+.triviaHeader {
+    position: relative;
+    top: 20px;
+    letter-spacing: 5px;
+    font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .wrapper {
     margin: 0px auto;
-    max-width: 960px;
+    max-width: 100%;
     text-align: center;
+    background : darkblue;
+    margin-bottom: 10px;
+    height : 670px;
+}
+
+#content {
+    max-width: 980px;
+    margin: 0px auto;
+}
+
+button {
+    color: orange;
+    background: rgba(255, 255, 255, 0.25);
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border: none;
+    border-left: 2px solid blue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 10px;
+    font-size: 24px;
+    
 }
