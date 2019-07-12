@@ -62,7 +62,10 @@ $(document).ready(function() {
 
     function btDecrement () {
         betweenTimer--;
-        if (betweenTimer === 0) {
+        if (nextQuestion === 3 && betweenTimer === 0) {
+            stop();
+            endScreen();
+        } else if (betweenTimer === 0) {
             stop();
             top();
         }
@@ -72,132 +75,11 @@ $(document).ready(function() {
 
     $(bigButton).click(function() {
         $("#startButton").remove();
-        startGame();
+        initGame();
     });
 
-    function top() {
 
-        betweenTimer = 5;
-
-        if (nextQuestion === 0) {
-            
-            runTimer();
-            
-            $("#questionInfo").html("<h1>" + questionsArray[0].question + "</h1>");
-        
-
-            for (var i = 0; i < questionsArray[0].options.length; i++) {
-                $("#questionInfo").append("<button class=answers>" + questionsArray[0].options[i] + "</button>");
-            }
-
-
-            $(".answers").click(function() {
-                
-                if ($(this).html() == questionsArray[0].answer) {
-                    stop();
-                    loadTimer();
-                    correct++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
-
-                } else {
-                    stop();
-                    loadTimer();
-                    incorrect++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
-
-                }
-            });
-
-        } else if (nextQuestion === 1) {
-            
-            runTimer();
-            
-            $("#questionInfo").html("<h1>" + questionsArray[1].question + "</h1>");
-        
-
-            for (var i = 0; i < questionsArray[1].options.length; i++) {
-                $("#questionInfo").append("<button class=answers>" + questionsArray[1].options[i] + "</button>");
-            }
-
-
-            $(".answers").click(function() {
-                
-                if ($(this).html() == questionsArray[1].answer) {
-                   
-                    stop();
-                    loadTimer();
-                    correct++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
-
-                } else {
-                   
-                    stop();
-                    loadTimer();
-                    incorrect++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
-
-                }
-            })
-
-        } else if (nextQuestion === 2) {
-            
-            runTimer();
-            
-            $("#questionInfo").html("<h1>" + questionsArray[2].question + "</h1>");
-        
-
-            for (var i = 0; i < questionsArray[2].options.length; i++) {
-                $("#questionInfo").append("<button class=answers>" + questionsArray[2].options[i] + "</button>");
-            }
-
-
-            $(".answers").click(function() {
-               
-                if ($(this).html() == questionsArray[2].answer) {
-                    stop();
-                    loadTimer();
-                    correct++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed correctly!</h1>");
-
-                } else {
-                   
-                    stop();
-                    loadTimer();
-                    incorrect++;
-                    nextQuestion++;
-                    $("#questionInfo").empty();
-                    $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
-
-                }
-            })
-        } else {
-
-            stop();
-            $("#questionInfo").empty();
-            $("#questionInfo").html("<h1>All done!</h1>");
-            $("#questionInfo").append("Times you were smart : " + correct + "<br>");
-            $("#questionInfo").append("Times you screwed up : " + incorrect + "<br>");
-            $("#questionInfo").append("Times you just didn't try : " + unanswered + "<br>");
-            $("#questionInfo").append(bigButton);
-            $(bigButton).click(function() {
-                $("#startButton").remove();
-                startGame();
-            });
-        };
-
-    }
-
-    function startGame() {
+    function initGame() {
     correct = 0;
     incorrect = 0;
     unanswered = 0;
@@ -209,4 +91,59 @@ $(document).ready(function() {
     };
 
 
+
+
+
+function top() {
+
+        betweenTimer = 5;
+
+        let j = nextQuestion;
+        
+        runTimer();
+        
+        $("#questionInfo").html("<h1>" + questionsArray[j].question + "</h1>");
+    
+
+        for (var i = 0; i < questionsArray[j].options.length; i++) {
+            $("#questionInfo").append("<button class=answers>" + questionsArray[j].options[i] + "</button>");
+        }
+
+
+        $(".answers").click(function() {
+            
+            if ($(this).html() == questionsArray[j].answer) {
+                stop();
+                loadTimer();
+                correct++;
+                nextQuestion++;
+                $("#questionInfo").empty();
+                $("#questionInfo").html("<h1>You guessed correctly!</h1>");
+
+            } else {
+                stop();
+                loadTimer();
+                incorrect++;
+                nextQuestion++;
+                $("#questionInfo").empty();
+                $("#questionInfo").html("<h1>You guessed incorrectly! You suck!</h1>");
+
+            } 
+        });
+    }
+    
+    
+    function endScreen () {
+        stop();
+        $("#questionInfo").empty();
+        $("#questionInfo").html("<h1>All done!</h1>");
+        $("#questionInfo").append("Times you were smart : " + correct + "<br>");
+        $("#questionInfo").append("Times you screwed up : " + incorrect + "<br>");
+        $("#questionInfo").append("Times you just didn't try : " + unanswered + "<br>");
+        $("#questionInfo").append(bigButton);
+            $(bigButton).click(function() {
+                $("#startButton").remove();
+                initGame();
+            });
+    };
 });
