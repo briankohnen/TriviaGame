@@ -11,10 +11,10 @@ var bigButton = $("#startButton");
 
 var questionsArray = [
     {
-    question : 'Axel, Blaze, "Skate," and Max are playable characters in which video game?',
-    options : ["Tomba! 2: The Evil Swine Return", "Streets of Rage 2", "Burger King PocketBike Racer", "Brave Fencer Musashi"],
-    answer : "Streets of Rage 2",
-    image : "https://media0.giphy.com/media/kgj1vsHuqsuIw/giphy.gif?cid=790b76115d28c0453578493067b74ed1&rid=giphy.gif"
+    question : "Mario first appeared in which classic video game?",
+    options : ["Super Mario Bros.", "Donkey Kong", "Plumbing Simulator v2", "Yoshi's Story"],
+    answer : "Donkey Kong",
+    image : "https://media2.giphy.com/media/L0ZgGChrYiSBsNbVYu/giphy.gif?cid=790b76115d28bfdc76564a6e674334c4&rid=giphy.gif"
     },
     {
     question : "Aiai, Meemee, Baby, and Gongon are characters in which video game series?",
@@ -35,10 +35,10 @@ var questionsArray = [
     image : "https://66.media.tumblr.com/01d9afa9d2faf16fc8b8130e059d3ad9/tumblr_mqthoz0c381ri420do3_250.gif"
     },
     {
-    question : "Mario first appeared in which classic video game?",
-    options : ["Super Mario Bros.", "Donkey Kong", "Plumbing Simulator v2", "Yoshi's Story"],
-    answer : "Donkey Kong",
-    image : "https://media2.giphy.com/media/L0ZgGChrYiSBsNbVYu/giphy.gif?cid=790b76115d28bfdc76564a6e674334c4&rid=giphy.gif"
+    question : 'Axel, Blaze, "Skate," and Max are playable characters in which video game?',
+    options : ["Tomba! 2: The Evil Swine Return", "Brave Fencer Musashi", "Burger King PocketBike Racer", "Streets of Rage 2"],
+    answer : "Streets of Rage 2",
+    image : "https://media0.giphy.com/media/kgj1vsHuqsuIw/giphy.gif?cid=790b76115d28c0453578493067b74ed1&rid=giphy.gif"
     },
     {
     question : "The Umbrella Corporation is a pharmaceutical company in which video game franchise?",
