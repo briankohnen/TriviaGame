@@ -1,14 +1,19 @@
+// game stats variables
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
+
+// timer variables
 var intervalId;
 var btIntervalId;
 var timer = 30;
 var betweenTimer = 5;
 var nextQuestion = 0;
+
+// button
 var bigButton = $("#startButton");
 
-
+// created array of objects to store data regarding questions
 var questionsArray = [
     {
     question : "Mario first appeared in which classic video game?",
@@ -48,18 +53,21 @@ var questionsArray = [
     }];
 
 
+// below functions occur only when the html document is ready
 $(document).ready(function() {
 
-
+// creating 30 sec timer for each individual question, calling decrement function every 1 second
     function runTimer() {
         timer = 30;
         clearInterval(intervalId);
         intervalId = setInterval(decrement, 1000);
     }
 
+// decrement function decrements by 1 on timer, displays time on the webpage
     function decrement() {
         timer--;
         $("#timer").html("<h3> Time Remaining : " + timer + "</h3>");
+        // if the timer reaches zero, stop runTimer, start a 5 second timer to move onto the next question
         if (timer === 0) {
             stop();
             loadTimer();
@@ -71,23 +79,25 @@ $(document).ready(function() {
         }
     }
 
+// this function clears the question timers and also the timer in between questions
     function stop () {
         clearInterval(intervalId);
         clearInterval(btIntervalId);
     }
 
-
-
+// creates a 5 second timer that runs between questions
     function loadTimer() {
         clearInterval(btIntervalId);
         btIntervalId = setInterval(btDecrement, 1000);
     }
 
+// if the user has answered all the questions and the between question timer is at 0, end the game
     function btDecrement () {
         betweenTimer--;
         if (nextQuestion === questionsArray.length && betweenTimer === 0) {
             stop();
             endScreen();
+            // else if the user hasnt answered all questions and the timer is at 0, continue asking questions
         } else if (betweenTimer === 0) {
             stop();
             top();
@@ -95,13 +105,13 @@ $(document).ready(function() {
     };
 
 
-
+// on clicking the button, the game will be initialized and the button is removed from the page
     $(bigButton).click(function() {
         $("#startButton").remove();
         initGame();
     });
 
-
+// initializes game, resets game variables to default values and calls 'top' function
     function initGame() {
     correct = 0;
     incorrect = 0;
@@ -114,27 +124,28 @@ $(document).ready(function() {
     };
 
 
-
-
-
+// this function contains the game's logic
 function top() {
-
+    // set the timer between questions to 5 seconds
         betweenTimer = 5;
-
+    // variable j is equal to the value of nextQuestion
         let j = nextQuestion;
-        
+    // call 30 second runTimer function
         runTimer();
-        
+    // display question from questions array at index of j
         $("#questionInfo").html("<h1>" + questionsArray[j].question + "</h1>");
     
-
+    // append the answer options of the current question being asked as buttons, assign these buttons the class of 'answers'
         for (var i = 0; i < questionsArray[j].options.length; i++) {
             $("#questionInfo").append("<button class=answers>" + questionsArray[j].options[i] + "</button>");
         }
 
-
+    // on clicking any of the buttons with the class of 'answers,' set var newImage to the image property of the current question object
         $(".answers").click(function() {
             var newImage = $("<img src=" + questionsArray[j].image + ">");
+            // if the value of 'this' clicked item is equal to the answer property of the current question object, stop question timer,
+            // start the between question timer. increase the correct guesses and also importantly the nextQuestion variable to move onto
+            // the next items in the array.
             if ($(this).html() == questionsArray[j].answer) {
                 $(newImage).css("height", "200px", "width", "200px");
                 stop();
@@ -157,7 +168,7 @@ function top() {
         });
     }
     
-    
+// when endScreen is called, stop all timers, display game stats and display the button for the ability to restart  
     function endScreen () {
         stop();
         $("#questionInfo").empty();
