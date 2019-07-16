@@ -147,7 +147,7 @@ function top() {
             // start the between question timer. increase the correct guesses and also importantly the nextQuestion variable to move onto
             // the next items in the array.
             if ($(this).html() == questionsArray[j].answer) {
-                $(newImage).css("height", "200px", "width", "200px");
+                $(newImage).css({"height":"300px", "width":"300px"});
                 stop();
                 loadTimer();
                 correct++;
